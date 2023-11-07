@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Manager</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .error-message {
+        color: #ff0000; 
+        font-size: 14px; 
+        margin-top: 5px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .create-container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            margin-top: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .signOut-container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            margin-top: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ username }}</h1>
+    <h2>Posts</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Department Code</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--Foreach loop-->
+            <tr *ngFor="let post of posts">
+                <td>{{ post.title }}</td>
+                <td>{{ post.description }}</td>
+                <td>{{ post.departmentCode }}</td>
+                <td>
+                    <input type="submit" id="Delete-button" value="Delete Post" (click)="onDeleteClick(post._id)" style="background-color: red; color: white;">
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="create-container">
+        <form>
+            <!--Title-->
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" [(ngModel)]="title" required>
+            <div *ngIf="titleError" class="error-message">{{ titleError }}</div>
+
+            <!--Description-->
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" [(ngModel)]="description" required>
+            <div *ngIf="descriptionError" class="error-message">{{ descriptionError }}</div>
+
+            <!--Department Code-->
+            <label for="departmentCode">Department Code:</label>
+            <input type="text" id="departmentCode" name="departmentCode" [(ngModel)]="departmentCode" required>
+            <div *ngIf="departmentCodeError" class="error-message">{{ departmentCodeError }}</div>
+
+            <!--Create Post-->
+            <input type="submit" id="Create-button" value="Create Post" (click)="onCreateClick()">
+            <div *ngIf="generalError" class="error-message">{{ generalError }}</div>
+        </form>
+    </div>
+    <div class="signOut-container">
+        <h1 style="text-align: center;">Sign Out</h1>
+        <input type="submit" id="signout-button" value="Sign Out" (click)="onSignOutClick() " style="background-color: gray; color: white;">
+    </div>
+</body>
+</html>
